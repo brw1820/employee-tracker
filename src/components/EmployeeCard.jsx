@@ -5,25 +5,25 @@ function EmployeeCard(props) {
     <div className="card mb-3" style={{ width: "100%" }}>
       <div className="row no-gutters">
         <div className="col-md-4">
-          <img  src={props.img} className="card-img" alt={props.name} />
+          <img  src={props.image} className="card-img" alt={props.lastName} />
         </div>
-        <div className="col-md-8">
-          <div className="card-body">
-            <div className="content">
-              <h5>
-                <strong>{props.name}</strong>
-              </h5>
-              <p>
-                <strong>{props.position}</strong>
+        <div className="col-md-6">
+          <div className="main-card">
+            <div className="return-value">
+              <p className= "first-name">
+                <strong>First Name:</strong>{props.firstName}
               </p>
-              <p className="office#">
-                office#<strong>{props.office}</strong>
+              <p className = "lastName">
+                <strong>Last Name:</strong>{props.lastName}
               </p>
-              <p className="mobile#">
-                mobile#<strong>{props.mobile}</strong>
+              <p className = "location">
+                <strong>Location:</strong>{props.location}
               </p>
-              <p className="email#">
-                email:<strong>{props.email}</strong>
+              <p className="email">
+               <strong>E-Mail:</strong>{props.email}
+              </p>
+              <p className="phone">
+                <strong>Phone:</strong>{props.phone}
               </p>
             </div>
           </div>
