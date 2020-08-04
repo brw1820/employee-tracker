@@ -37,8 +37,8 @@ class Homepage extends Component {
 
   sortEmployees = () => {
     const sortedEmployees = this.state.employees.sort(function (a, b) {
-      const nameA = a.name.first.toLowerCase();
-      const nameB = b.name.first.toLowerCase();
+      const nameA = a.name.last.toLowerCase();
+      const nameB = b.name.last.toLowerCase();
       if (nameA > nameB) {
         return 1;
       }
@@ -48,7 +48,7 @@ class Homepage extends Component {
       return 0;
     });
     this.setState({ employees: sortedEmployees });
-    console.log("string");
+    console.log("click");
   };
 
   // const sortedEmployees = this.state.employees.sort(compare);
@@ -75,7 +75,7 @@ class Homepage extends Component {
                 name="searchInput"
               />
               <button onClick={this.sortEmployees}>
-                Sort Employee Alphabetically
+                Sort Employee Alphabetically by Last Name
               </button>
             </div>
           </div>
