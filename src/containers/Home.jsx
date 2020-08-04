@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import EmployeeCard from "../components/EmployeeCard";
+import EmployeeCard from "../components/EmployeeCard/EmployeeCard";
 import axios from "axios";
+import "./Home.css";
 
 class Homepage extends Component {
   state = {
@@ -18,59 +19,85 @@ class Homepage extends Component {
       .catch((err) => {
         console.log(err);
       });
-    }
+  }
 
-    handleInputChange = event => {
-        const value = event.target.value;
-        const name = event.target.name;
-        this.setState({
-          [name]: value
-        });
-      };
-    
-      // When the form is submitted, search the OMDB API for the value of `this.state.search`
-      handleFormSubmit = event => {
-        event.preventDefault();
-        this.searchEmployees(this.state.search);
-      };
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+    console.log(this.state.searchInput);
+    this.handleSearchInput();
+  };
+
+  handleSearchInput = () => {
+    const searchedEmployees = this.state.employees.filter((employee) =>
+      employee.name.first.includes(this.state.searchInput)
+    );
+    console.log(searchedEmployees);
+    this.setState({ employees: searchedEmployees });
+  };
+
+  sortEmployees = () => {
+    const sortedEmployees = this.state.employees.sort(function (a, b) {
+      const nameA = a.name.first.toLowerCase();
+      const nameB = b.name.first.toLowerCase();
+      if (nameA > nameB) {
+        return 1;
+      }
+      if (nameA < nameB) {
+        return -1;
+      }
+      return 0;
+    });
+    this.setState({ employees: sortedEmployees });
+    console.log("string");
+  };
+
+  // const sortedEmployees = this.state.employees.sort(compare);
+
+  // this.setState({
+  //   employees: sortedEmployees
+  // })
 
   render() {
     return (
-        <div className="container">
-            <div className="row">
-          <div className="col-sm-12">
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-3">
             <h1>Your Employees</h1>
           </div>
-          <div className="col-sm-12">
+          <div className="col-sm-3">
             <div>
               <h4>Search for an employee: </h4>
               <input
                 type="text"
-                value={this.state.value}
-                onChange={this.handleOnChange}
-                placeholder="Name"
+                onChange={this.handleInputChange}
+                placeholder="Search for an Employee"
+                className="form-control"
+                name="searchInput"
               />
+              <button onClick={this.sortEmployees}>
+                Sort Employee Alphabetically
+              </button>
             </div>
           </div>
         </div>
         <div className="row">
-          <div className="col">
-      <div className="employee-container">
-          {this.state.employees.map((data) => (
-            <EmployeeCard
-              image={data.picture.large}
-              id={data.id.value}
-              firstName={data.name.first}
-              lastName={data.name.last}
-              location={data.location.city}
-              email={data.email}
-              phone={data.phone}
-            />
-          ))}
+          <div className="col-sm-3">
+            <div className="employee-container">
+              {this.state.employees.map((data) => (
+                <EmployeeCard
+                  image={data.picture.large}
+                  id={data.id.value}
+                  firstName={data.name.first}
+                  lastName={data.name.last}
+                  location={data.location.city}
+                  email={data.email}
+                  phone={data.phone}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        </div>
+      </div>
     );
   }
 }
